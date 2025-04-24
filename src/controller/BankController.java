@@ -1,16 +1,18 @@
 package controller;
 
 import model.Bank;
-import service.CSVReader.CSVBanksReader;
+import service.BankServiceImpl;
 
 import java.util.List;
 
 public class BankController {
-    private List<Bank> banks;
-    private static final String CSV_PATH = "data/banks.csv";
+    private final BankServiceImpl clientService;
 
-//    Вызов через экземпляр класса, а не через сам класс.
-//    public void loadBanks() {
-//        banks = CSVBanksReader.read(CSV_PATH);
-//    }
+    public BankController(BankServiceImpl clientService) {
+        this.clientService = clientService;
+    }
+
+    public List<Bank> getBanks() {
+        return clientService.getAllBanks();
+    }
 }
