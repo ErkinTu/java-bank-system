@@ -12,7 +12,11 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    public List<Client> getClients() {
+    public List<Client> getClientList() {
         return clientService.getAllClients();
+    }
+
+    public void saveClientList(List<Client> clientList) {
+        clientService.saveClients(clientList);
     }
 }
