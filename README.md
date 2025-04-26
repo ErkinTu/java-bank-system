@@ -27,8 +27,8 @@ As we progressed through the lessons, we gradually developed this simple banking
 
 **Clone the repository:**
 ```bash
-git clone
-cd src/main
+git clone https://github.com/ErkinTu/java-bank-system.git
+cd java-bank-system/src/main
 ```
 
 **Compile the project:**
