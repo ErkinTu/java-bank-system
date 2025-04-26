@@ -1,27 +1,42 @@
 package main;
 
-import model.Client;
-import service.CSVReader.CSVClientsReader;
-import service.CSVWriter.CSVClientsWriter;
+import controller.BankController;
+import controller.ClientController;
+import controller.PaymentController;
+import service.BankServiceImpl;
+import service.ClientServiceImpl;
+import service.PaymentMethod.BankAccountPaymentMethod;
+import service.PaymentMethod.PaymentMethod;
+import service.PaymentMethod.PhonePaymentMethod;
+import view.MainView;
 
+import java.util.ArrayList;
 import java.util.List;
-
 
 public class Main {
     public static void main(String[] args) {
+        // Инициализация сервисов и контроллеров
+        ClientServiceImpl clientService = new ClientServiceImpl("data/clients.csv");
+        ClientController clientController = new ClientController(clientService);
 
-        CSVClientsReader clientsReader = new CSVClientsReader();
-        List<Client> clients = clientsReader.read("data/clients.csv");
+        BankServiceImpl bankService = new BankServiceImpl("data/banks.csv");
+        BankController bankController = new BankController(bankService);
 
-        Client client1 = clients.get(0);
-        System.out.println(client1.getBalance());
-        client1.receiveMoney(49499.9);
+        MainView mainView = getMainView(clientController, bankController);
+        mainView.setVisible(true);
+    }
 
-        CSVClientsWriter clientsWriter = new CSVClientsWriter();
-        clientsWriter.save(clients, "data/clients-tu.csv");
+    private static MainView getMainView(ClientController clientController, BankController bankController) {
+        BankAccountPaymentMethod bankAccountPaymentMethod = new BankAccountPaymentMethod();
+        PhonePaymentMethod phonePaymentMethod = new PhonePaymentMethod();
+        List<PaymentMethod> paymentMethods = new ArrayList<>();
+        paymentMethods.add(bankAccountPaymentMethod);
+        paymentMethods.add(phonePaymentMethod);
 
-        List<Client> clientst = clientsReader.read("data/clients-tu.csv");
-        Client client1t = clientst.get(0);
-        System.out.println(client1t.getBalance());
+        PaymentController paymentController = new PaymentController(paymentMethods);
+
+        // Создание и отображение главного окна приложения
+        MainView mainView = new MainView(clientController, bankController, paymentController);
+        return mainView;
     }
 }
