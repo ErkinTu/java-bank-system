@@ -1,4 +1,6 @@
 name; code; address; balance
-SimBank; SIM123; Bishkek,Kyrgyzstan; 9500000.00
+SimBank; SIM123; Bishkek,Kyrgyzstan; 9500000.10
 RSCBank; RSC345; Bishkek,Kyrgyzstan; 9000000.00
 DemirBank; DMB567; Bishkek,Kyrgyzstan; 7500000.00
+DosCredo; DOS111; Bishkek, Kyrgyzstan; 8900000.50
+AyilBank; AYB222; Bishkek, Kyrgyzstan; 7900000.20

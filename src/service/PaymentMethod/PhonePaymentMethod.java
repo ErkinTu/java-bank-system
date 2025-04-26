@@ -2,11 +2,16 @@ package service.PaymentMethod;
 
 import model.Client;
 
+import java.util.Objects;
+
 public class PhonePaymentMethod implements PaymentMethod {
     @Override
     public boolean transfer(Client from, Client to, double amount) {
-        if (!canTransferTo(to)) {
-            System.err.println("Ошибка: у получателя отсутствует номер телефона.");
+        if (!canTransferTo(from)) {
+            System.err.println("Ошибка: у отправителя " + from.getFirstName() + " отсутствует номер телефона.");
+            return false;
+        } else if (!canTransferTo(to)) {
+            System.err.println("Ошибка: у получателя " + to.getFirstName() + " отсутствует номер телефона.");
             return false;
         }
 
@@ -21,8 +26,7 @@ public class PhonePaymentMethod implements PaymentMethod {
 
     @Override
     public boolean canTransferTo(Client receiver) {
-        return receiver != null && receiver.getPhoneNumber() != null &&
-                !receiver.getPhoneNumber().isEmpty() && !receiver.getPhoneNumber().equals("null");
+        return !Objects.equals(receiver.getPhoneNumber(), "null");
     }
 
     @Override

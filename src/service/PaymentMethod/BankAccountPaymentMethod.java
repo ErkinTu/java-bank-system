@@ -2,11 +2,16 @@ package service.PaymentMethod;
 
 import model.Client;
 
+import java.util.Objects;
+
 public class BankAccountPaymentMethod implements PaymentMethod {
     @Override
     public boolean transfer(Client from, Client to, double amount) {
-        if (!canTransferTo(to)) {
-            System.err.println("Ошибка: у получателя отсутствует банковский счет.");
+        if (!canTransferTo(from)) {
+            System.err.println("Ошибка: у отправителя " + from.getFirstName() + " отсутствует банковский счет.");
+            return false;
+        } else if (!canTransferTo(to)) {
+            System.err.println("Ошибка: у получателя " + to.getFirstName() + " отсутствует банковский счет.");
             return false;
         }
 
@@ -21,7 +26,7 @@ public class BankAccountPaymentMethod implements PaymentMethod {
 
     @Override
     public boolean canTransferTo(Client receiver) {
-        return receiver.getBankAccount() != null && !receiver.getBankAccount().isEmpty();
+        return !Objects.equals(receiver.getBankAccount(), "null");
     }
 
     @Override
