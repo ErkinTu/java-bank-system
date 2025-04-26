@@ -19,4 +19,8 @@ public class ClientController {
     public void saveClientList(List<Client> clientList) {
         clientService.saveClients(clientList);
     }
+
+    public Client getClient(String inn) {
+        return clientService.getClientByInn(inn);
+    }
 }
