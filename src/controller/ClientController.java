@@ -1,14 +1,14 @@
 package controller;
 
 import model.Client;
-import service.ClientServiceImpl;
+import service.interfaces.ClientService;
 
 import java.util.List;
 
 public class ClientController {
-    private final ClientServiceImpl clientService;
+    private final ClientService clientService;
 
-    public ClientController(ClientServiceImpl clientService) {
+    public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
 

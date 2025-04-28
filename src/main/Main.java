@@ -3,11 +3,12 @@ package main;
 import controller.BankController;
 import controller.ClientController;
 import controller.PaymentController;
-import service.BankServiceImpl;
-import service.ClientServiceImpl;
+import service.impl.BankServiceImpl;
+import service.impl.ClientServiceImpl;
 import service.PaymentMethod.BankAccountPaymentMethod;
 import service.PaymentMethod.PaymentMethod;
 import service.PaymentMethod.PhonePaymentMethod;
+import service.impl.PaymentServiceImpl;
 import view.MainView;
 
 import java.util.ArrayList;
@@ -27,13 +28,17 @@ public class Main {
     }
 
     private static MainView getMainView(ClientController clientController, BankController bankController) {
+        PaymentServiceImpl paymentService = new PaymentServiceImpl();
         BankAccountPaymentMethod bankAccountPaymentMethod = new BankAccountPaymentMethod();
         PhonePaymentMethod phonePaymentMethod = new PhonePaymentMethod();
         List<PaymentMethod> paymentMethods = new ArrayList<>();
         paymentMethods.add(bankAccountPaymentMethod);
         paymentMethods.add(phonePaymentMethod);
 
-        PaymentController paymentController = new PaymentController(paymentMethods);
+        List<PaymentServiceImpl> paymentServices = new ArrayList<>();
+        paymentServices.add(paymentService);
+
+        PaymentController paymentController = new PaymentController(paymentMethods, paymentServices);
 
         // Создание и отображение главного окна приложения
         MainView mainView = new MainView(clientController, bankController, paymentController);
