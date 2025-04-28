@@ -1,4 +1,4 @@
-package service.CSVReader;
+package repository.CSVReader;
 
 import model.Client;
 

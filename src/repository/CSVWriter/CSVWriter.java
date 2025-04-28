@@ -1,6 +1,5 @@
-package service.CSVWriter;
+package repository.CSVWriter;
 
-import model.Client;
 import java.util.List;
 
 public interface CSVWriter<T> {
