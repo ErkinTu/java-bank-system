@@ -1,14 +1,15 @@
-package service;
+package service.impl;
 
 import model.Bank;
-import service.CSVReader.CSVBanksReader;
-import service.CSVWriter.CSVBanksWriter;
+import repository.CSVReader.CSVBanksReader;
+import repository.CSVWriter.CSVBanksWriter;
+import service.interfaces.BankService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class BankServiceImpl {
+public class BankServiceImpl implements BankService {
     private List<Bank> banks;
     private final CSVBanksReader csvBanksReader;
     private final CSVBanksWriter csvBanksWriter;
@@ -23,10 +24,12 @@ public class BankServiceImpl {
     }
 
 //    Getters
+    @Override
     public Bank getBankByCode(String code) {
         return banks.stream().filter(bank -> bank.getCode().equals(code)).findFirst().orElse(null);
     }
 
+    @Override
     public List<Bank> getAllBanks() {
         return banks;
     }

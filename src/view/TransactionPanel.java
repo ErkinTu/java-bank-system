@@ -2,6 +2,7 @@ package view;
 
 import model.Client;
 import service.PaymentMethod.PaymentMethod;
+import service.interfaces.PaymentService;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

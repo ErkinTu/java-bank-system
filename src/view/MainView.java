@@ -4,7 +4,9 @@ import controller.BankController;
 import controller.ClientController;
 import controller.PaymentController;
 import model.Client;
+import model.dto.PaymentResult;
 import service.PaymentMethod.PaymentMethod;
+import service.interfaces.PaymentService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -87,12 +89,15 @@ public class MainView extends JFrame {
         Client receiver = transactionPanel.getSelectedReceiver();
         String amountText = transactionPanel.getAmount();
         PaymentMethod paymentMethod = transactionPanel.getSelectedPaymentMethod();
+        // Hard coding
+        // PaymentService paymentService = new PaymentServiceImpl();
+        PaymentService paymentService = paymentController.getServiceByIndex(0);
 
         try {
             double amount = Double.parseDouble(amountText);
 
-            PaymentController.PaymentResult result = paymentController.processPayment(
-                    sender, receiver, amount, paymentMethod);
+            PaymentResult result = paymentController.processPayment(
+                    sender, receiver, amount, paymentMethod, paymentService);
 
             if (result.isSuccess()) {
                 statusPanel.showSuccessMessage(result.getMessage());

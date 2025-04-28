@@ -1,14 +1,14 @@
 package controller;
 
 import model.Bank;
-import service.BankServiceImpl;
+import service.interfaces.BankService;
 
 import java.util.List;
 
 public class BankController {
-    private final BankServiceImpl clientService;
+    private final BankService clientService;
 
-    public BankController(BankServiceImpl clientService) {
+    public BankController(BankService clientService) {
         this.clientService = clientService;
     }
 

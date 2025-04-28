@@ -1,9 +1,13 @@
-package service;
+package service.impl;
 
 import model.Client;
+import model.dto.TransferResult;
+import model.dto.ValidationResult;
 import service.PaymentMethod.PaymentMethod;
+import service.interfaces.PaymentService;
 
-public class PaymentServiceImpl {
+public class PaymentServiceImpl implements PaymentService {
+    @Override
     public ValidationResult validateTransfer(Client sender, Client receiver, double amount) {
         if (sender == null) {
             return new ValidationResult(false, "Отправитель не выбран");
@@ -28,6 +32,7 @@ public class PaymentServiceImpl {
         return new ValidationResult(true, "Валидация пройдена успешно");
     }
 
+    @Override
     public TransferResult executeTransfer(Client sender, Client receiver, double amount, PaymentMethod paymentMethod) {
         ValidationResult validationResult = validateTransfer(sender, receiver, amount);
         if (!validationResult.isValid()) {
@@ -40,42 +45,6 @@ public class PaymentServiceImpl {
             return new TransferResult(true, "Перевод успешно выполнен на сумму " + amount);
         } else {
             return new TransferResult(false, "Ошибка при выполнении перевода");
-        }
-    }
-
-    public static class ValidationResult {
-        private final boolean valid;
-        private final String message;
-
-        public ValidationResult(boolean valid, String message) {
-            this.valid = valid;
-            this.message = message;
-        }
-
-        public boolean isValid() {
-            return valid;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-    }
-
-    public static class TransferResult {
-        private final boolean success;
-        private final String message;
-
-        public TransferResult(boolean success, String message) {
-            this.success = success;
-            this.message = message;
-        }
-
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public String getMessage() {
-            return message;
         }
     }
 }

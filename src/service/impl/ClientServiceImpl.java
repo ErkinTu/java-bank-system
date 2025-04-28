@@ -1,13 +1,14 @@
-package service;
+package service.impl;
 
 import model.Client;
-import service.CSVReader.CSVClientsReader;
-import service.CSVWriter.CSVClientsWriter;
+import repository.CSVReader.CSVClientsReader;
+import repository.CSVWriter.CSVClientsWriter;
+import service.interfaces.ClientService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientServiceImpl {
+public class ClientServiceImpl implements ClientService {
     private List<Client> clients;
     private final CSVClientsReader csvClientsReader;
     private final CSVClientsWriter csvClientsWriter;
@@ -22,10 +23,12 @@ public class ClientServiceImpl {
     }
 
 //    Getters
+    @Override
     public Client getClientByInn(String inn) {
         return clients.stream().filter(client -> client.getInn().equals(inn)).findFirst().orElse(null);
     }
 
+    @Override
     public List<Client> getAllClients() {
         return clients;
     }
@@ -37,6 +40,7 @@ public class ClientServiceImpl {
     }
 
     // Repo*
+    @Override
     public void saveClients(List<Client> clients) {
         csvClientsWriter.save(clients, csvPath);
     }
