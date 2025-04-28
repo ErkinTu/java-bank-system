@@ -89,15 +89,12 @@ public class MainView extends JFrame {
         Client receiver = transactionPanel.getSelectedReceiver();
         String amountText = transactionPanel.getAmount();
         PaymentMethod paymentMethod = transactionPanel.getSelectedPaymentMethod();
-        // Hard coding
-        // PaymentService paymentService = new PaymentServiceImpl();
-        PaymentService paymentService = paymentController.getServiceByIndex(0);
 
         try {
             double amount = Double.parseDouble(amountText);
 
             PaymentResult result = paymentController.processPayment(
-                    sender, receiver, amount, paymentMethod, paymentService);
+                    sender, receiver, amount, paymentMethod);
 
             if (result.isSuccess()) {
                 statusPanel.showSuccessMessage(result.getMessage());
