@@ -1,29 +1,21 @@
 package service.impl;
 
 import model.Bank;
-import repository.CSVReader.CSVBanksReader;
-import repository.CSVWriter.CSVBanksWriter;
+import repository.BankRepository;
 import service.interfaces.BankService;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 public class BankServiceImpl implements BankService {
     private List<Bank> banks;
-    private final CSVBanksReader csvBanksReader;
-    private final CSVBanksWriter csvBanksWriter;
-    private final String csvPath;
+    private final BankRepository bankRepository;
 
     public BankServiceImpl(String csvPath) {
-        banks = new ArrayList<>();
-        csvBanksReader = new CSVBanksReader();
-        csvBanksWriter = new CSVBanksWriter();
-        this.csvPath = csvPath;
-        loadBanks(csvPath);
+        this.bankRepository = new BankRepository(csvPath);
+        loadBanks();
     }
 
-//    Getters
+    // Getters
     @Override
     public Bank getBankByCode(String code) {
         return banks.stream().filter(bank -> bank.getCode().equals(code)).findFirst().orElse(null);
@@ -34,14 +26,11 @@ public class BankServiceImpl implements BankService {
         return banks;
     }
 
-    // Repo*
-    public List<Bank> loadBanks(String fileName) {
-        banks = csvBanksReader.read(fileName);
-        return banks;
+    private void loadBanks() {
+        banks = bankRepository.loadBanks();
     }
 
-    // Repo*
-    public void saveBanks(List<Bank> banks) {
-        csvBanksWriter.save(banks, csvPath);
+    public void saveBanks() {
+        bankRepository.saveBanks(banks);
     }
 }
