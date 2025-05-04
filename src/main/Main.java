@@ -3,6 +3,7 @@ package main;
 import controller.BankController;
 import controller.ClientController;
 import controller.PaymentController;
+import service.PaymentMethod.BankAccountCashbackPaymentMethod;
 import service.impl.BankServiceImpl;
 import service.impl.ClientServiceImpl;
 import service.PaymentMethod.BankAccountPaymentMethod;
@@ -31,9 +32,11 @@ public class Main {
         PaymentServiceImpl paymentService = new PaymentServiceImpl();
         BankAccountPaymentMethod bankAccountPaymentMethod = new BankAccountPaymentMethod();
         PhonePaymentMethod phonePaymentMethod = new PhonePaymentMethod();
+        BankAccountCashbackPaymentMethod bankAccountCashbackPaymentMethod = new BankAccountCashbackPaymentMethod();
         List<PaymentMethod> paymentMethods = new ArrayList<>();
         paymentMethods.add(bankAccountPaymentMethod);
         paymentMethods.add(phonePaymentMethod);
+        paymentMethods.add(bankAccountCashbackPaymentMethod);
 
         List<PaymentServiceImpl> paymentServices = new ArrayList<>();
         paymentServices.add(paymentService);
